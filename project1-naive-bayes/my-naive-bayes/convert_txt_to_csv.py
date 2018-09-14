@@ -1,9 +1,4 @@
 
-# coding: utf-8
-
-# In[65]:
-
-
 import csv
 
 
@@ -20,9 +15,6 @@ def convertToCSV(txtfile, csvfile):
             out_file = csv.writer(f2)
             out_file.writerow(list(line.split()))
     
-
-
-# In[66]:
 
 
 #convertToCSV('../sentiment-labelled-sentences/mainDataset.txt', '../sentiment-labelled-sentences/mainDataset.csv')
