@@ -1,17 +1,13 @@
-
-
 import csv
 import math
 from utility_functions import *
 
 
 
-
-
 def priorProb(csvdatafile, cls):
     """
-    this function calculates the probability 
-    of a given class in the dataset (Prior Probability).
+        This function calculates the probability 
+        of a given class in the dataset (the prior probability).
     """
     lst = createList(csvdatafile)
     
@@ -19,8 +15,8 @@ def priorProb(csvdatafile, cls):
 
 def countWrdsOfVocInCls(csvdatafile, cls):
     """
-        Finds the sum of the occurrence of everyword in the vocabulary in a given class.
-        it normalizes each word occurrence by adding one to it.
+        Finds the total occurrence of everyword in the vocabulary for a given class.
+        It normalizes each word occurrence by adding one to it.
     """
     
     datasetCounts = createDict(csvdatafile, 1) + createDict(csvdatafile, 0)
@@ -43,7 +39,7 @@ def likelihoodOfWordInCls(wrd, cls):
     """
     csvdataset = '../sentiment-labelled-sentences/mainDataset.csv'
     
-    countOfWrd = createDict(csvdataset, cls)[wrd] + 1
+    countOfWrd = createDict(csvdataset, cls)[wrd.lower] + 1
     
     
     return math.log10(countOfWrd/countWrdsOfVocInCls(csvdataset, cls))
