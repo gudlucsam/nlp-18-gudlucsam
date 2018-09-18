@@ -17,13 +17,13 @@ def createList(csvdatafile):
 
 def createDict(csvdatafile, cls):
     """
-        create a dictionary of words count given a class in the dataset.
+        create a dictionary of words count in a class.
     """
     cnt = Counter()
     lst = createList(csvdatafile)
     for i in lst:
         if i and int(i[-1]) == cls:
-            cnt.update(map(str.lower, i[:-1]))
+            cnt.update([item.lower() for item in i[:-1]])
             
     return cnt
     
@@ -48,7 +48,7 @@ def convertToCSV(txtfile, csvfile):
         out_file = csv.writer(f2)
         for line in f1:
             line = line.strip(' \n\t')
-            for ch in [',', ';', '.', '"', '!', '(', ')', ':', '/', "-", '\\' ]:
+            for ch in [',', ';', '.', '"', '!', '(', ')', ':', '/', "-", '\\', '?' ]:
                 if ch in line:
                     line = line.replace(ch, ' ')
             out_file.writerow(list(line.strip().split()))

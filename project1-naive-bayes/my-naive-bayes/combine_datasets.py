@@ -1,10 +1,6 @@
 
-# coding: utf-8
 
-# In[1]:
-
-
-def createDataset(file, dataset):
+def combineDataset(file, dataset):
     """
         writes data from a file to a new file.
     """
@@ -13,13 +9,3 @@ def createDataset(file, dataset):
             file2.write(line)
             
         
-    
-
-
-# In[4]:
-
-
-#createDataset('../sentiment-labelled-sentences/imdb_labelled.txt', '../sentiment-labelled-sentences/mainDataset.txt')
-#createDataset('../sentiment-labelled-sentences/amazon_cells_labelled.txt', '../sentiment-labelled-sentences/mainDataset.txt')
-#createDataset('../sentiment-labelled-sentences/yelp_labelled.txt', '../sentiment-labelled-sentences/mainDataset.txt')
-

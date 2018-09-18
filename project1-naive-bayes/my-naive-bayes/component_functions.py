@@ -11,24 +11,26 @@ def priorProb(csvdatafile, cls):
     """
     lst = createList(csvdatafile)
     
-    return math.log10(totalCls(lst, cls)/len(lst))
+    return math.log(totalCls(lst, cls)/len(lst))
 
 def countWrdsOfVocInCls(csvdatafile, cls):
     """
         Finds the total occurrence of everyword in the vocabulary for a given class.
         It normalizes each word occurrence by adding one to it.
     """
+    posDict = createDict(csvdatafile, 1)
+    negDict = createDict(csvdatafile, 0)
     
-    datasetCounts = createDict(csvdatafile, 1) + createDict(csvdatafile, 0)
+    datasetCounts = posDict + negDict
     
-    if int(cls) == 1:
-        counts = createDict(csvdatafile, 1)
+    if cls == 1:
+        counts = posDict
     else:
-        counts = createDict(csvdatafile, 0)
+        counts = negDict
     
     cnt = 0
     for wrd in datasetCounts:
-        cnt+=counts[wrd] + 1
+        cnt +=counts[wrd] + 1
     
     return cnt
         
@@ -39,10 +41,10 @@ def likelihoodOfWordInCls(wrd, cls):
     """
     csvdataset = '../sentiment-labelled-sentences/mainDataset.csv'
     
-    countOfWrd = createDict(csvdataset, cls)[wrd.lower] + 1
+    countOfWrd = createDict(csvdataset, cls)[wrd.lower()] + 1
     
     
-    return math.log10(countOfWrd/countWrdsOfVocInCls(csvdataset, cls))
+    return math.log(countOfWrd/countWrdsOfVocInCls(csvdataset, cls))
 
 
 
