@@ -1,49 +1,19 @@
 import csv
-import math
-from collections import Counter
 
 
 
-def createList(csvdatafile):
+def merge_dataset(file, dataset):
     """
-        creates a python list from data in csv format.
+        writes data from a file to another file.
     """
-    with open(csvdatafile, 'r') as f:
-        reader = csv.reader(f)
-        lst = list(reader)
-        
-    return lst
-    
-
-def createDict(csvdatafile, cls):
-    """
-        create a dictionary of words count in a class.
-    """
-    cnt = Counter()
-    lst = createList(csvdatafile)
-    for i in lst:
-        if i and int(i[-1]) == cls:
-            cnt.update([item.lower() for item in i[:-1]])
+    with open(file, 'r') as file1, open(dataset, 'a') as file2:
+        for line in file1:
+            file2.write(line)
             
-    return cnt
-    
-    
-def totalCls(lst, cls):
-    """
-        returns the total counts of a class in dataset.
-    """
-    count = 0
-    for i in lst:
-        if i and int(i[-1]) == cls:
-            count+=1
-                
-    return count
-            
-def convertToCSV(txtfile, csvfile):
+def convert_to_csv(txtfile, csvfile):
     """
         converts a txt file into a csv
     """
-    
     with open(txtfile, 'r') as f1, open(csvfile, 'w', newline='') as f2:
         out_file = csv.writer(f2)
         for line in f1:
