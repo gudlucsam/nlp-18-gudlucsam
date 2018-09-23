@@ -32,8 +32,6 @@ python my_naive_bayes.py "../sentiment-labelled-sentences/newdoc.txt"
 
 python my_naive_bayes.py -h # provides help on how to run this on the command-line
 
---outfile "path-to-output-file"
---accuracy "path-to-labelled-testdata" # to compute accuracy with this testdata
 ```
 
 ### Other Command-line Argument
