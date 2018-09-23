@@ -1,6 +1,6 @@
-# nlp-18-gudlucsam ![CI status](https://github.com/gudlucsam/nlp-18-gudlucsam)
+# nlp-18-gudlucsam ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)
 
-NLP-18-GUDLUCSAM is a Python program for peforming semtiment analysis. This project repo is for my natural language processing class at Ashesi.
+NLP-18-GUDLUCSAM is a Python program for peforming sentiment analysis. This project repo is for my natural language processing class at Ashesi. [Link](https://github.com/gudlucsam/nlp-18-gudlucsam)
 
 ## Installation
 
