@@ -1,5 +1,6 @@
 import csv
 import math
+from argparse import ArgumentParser
 from collections import Counter
 
 
@@ -152,21 +153,12 @@ class model:
             this function trains the model with a dataset.
         """
         self.create_list()
-        #print(self.getList())
         self.create_dict_of_words_count()
-        #print(self.getDictOfWordCounts()[1])
         self.total_counts_of_reviews_in_cls()
-        #print(self.getTotalCountsOfReviews()[0])
         self.overall_reviews_in_dataset()
-        #print(self.getOverallCountOfReviews())
         self.find_prior()
-        #print(self.getLogPrior()[0])
         self.distinct_words_in_v()
-        #print(self.getDistinctWords())
         self.words_occurence_in_cls()
-        #print(self.getFreqOfWordsInCls()[0])
-        #self.log_likelihood_of_word_in_cls('bad')
-        #print(self.getLogLikihoodOfWordInCls()['bad'][0])
 
     def likelihood_of_review(self, review, clss):
         """
@@ -188,14 +180,14 @@ class model:
 
         return likelihood
 
-    def naive_bayes_classifier(self, testdoc, resultsdoc="../sentiment-labelled-sentences/result.txt"):
+    def naive_bayes_classifier(self, doc, resultsdoc="../sentiment-labelled-sentences/result.txt"):
         """
-            this function takes a testdoc.txt file containing a several sentences each sentence representing a review.
+            this function takes an unlabelled doc.txt file containing a several sentences each sentence representing a review.
             and creates a resultsdoc file (passed to function as argument) containing computed labels for each review.
             it also returns a list of assigned labels to help compute the accuracy of the model
         """
         labels = []
-        with open(testdoc, 'r') as f1, open(resultsdoc, 'w',  newline='') as f2:
+        with open(doc, 'r') as f1, open(resultsdoc, 'w',  newline='') as f2:
             for review in f1:
                 prob = []
                 for clss in self.cls:
@@ -215,11 +207,11 @@ class model:
                 # write results to file
                 f2.write(str(label) + '\n')
                 
-            self.labels = labels
+        self.labels = labels
             
     def compute_accuracy(self, testdoc, newtestdoc="../sentiment-labelled-sentences/newdoc.txt"):
         """
-            This function measures the accuracy of the model with labelled dataset.
+            This function measures the accuracy of the model with a labelled testdoc.
         """
         # cleaning testdoc data with labels to newtestdoc without labels
         known_labels = []
@@ -250,11 +242,28 @@ class model:
 
 if __name__ == '__main__':
     # instantiate model
-    mdl = model('../sentiment-labelled-sentences/mainDataset.csv', [0,1])
+    mdl = model('../sentiment-labelled-sentences/mainDataset.csv', [0, 1])
     # train model
     mdl.train()
+
+    # accept command-line arguments
+    parser = ArgumentParser(description="Does a Sentiment analysis for reviews. It takes a required positional argument as the unlabelled doc-file to perform the analysis on. and one optional argument filepath to write the output labels. ")
+    parser.add_argument("doc-filename", help="takes the doc file path")
+    parser.add_argument("--outfile", "-o", dest="results-filename", default="../sentiment-labelled-sentences/result.txt", help="takes file path to output the results. it writes output to a default file path: '../sentiment-labelled-sentences/result.txt'", required=False)
+    parser.add_argument("--accuracy", '-a', dest="labelled-testdata-to-measure-accuracy",
+                        help="takes in a path to a labelled test file, to compute the accuracy of the model. pass filepath: '../sentiment-labelled-sentences/test.txt' to use 30%% of dataset as testdata", required=False)
+    args = vars(parser.parse_args())
+
+    # extract arguments passed from command-line
+    doc = args.get('doc-filename', None)
+    resultsdoc = args.get('results-filename', None)
+    testdoc = args.get('labelled-testdata-to-measure-accuracy', None)
+
     # start classifiers
-    mdl.naive_bayes_classifier("../sentiment-labelled-sentences/test.txt")
-    # measure accuracy with 30% of dataset.
-    mdl.compute_accuracy("../sentiment-labelled-sentences/test.txt")
-    print(mdl.getAccuracy())
+    if doc:
+        mdl.naive_bayes_classifier(doc, resultsdoc)
+
+    # measure accuracy with 30% of dataset as testdoc.
+    if testdoc:
+        mdl.compute_accuracy(testdoc)
+        print("accuracy of model is {}".format(mdl.getAccuracy()))
