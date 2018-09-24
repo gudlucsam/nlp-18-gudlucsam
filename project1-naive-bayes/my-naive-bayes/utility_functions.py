@@ -24,3 +24,8 @@ def convert_to_csv(txtfile, csvfile):
             out_file.writerow(list(line.strip().split()))
 
     
+# if __name__ == '__main__':
+#     merge_dataset('../sentiment-labelled-sentences/amazon_cells_labelled.txt', '../sentiment-labelled-sentences/mainDataset.txt')
+#     merge_dataset('../sentiment-labelled-sentences/imdb_labelled.txt', '../sentiment-labelled-sentences/mainDataset.txt')
+#     merge_dataset('../sentiment-labelled-sentences/yelp_labelled.txt', '../sentiment-labelled-sentences/mainDataset.txt')
+#     convert_to_csv('../sentiment-labelled-sentences/mainDataset.txt', '../sentiment-labelled-sentences/mainDataset.csv')
