@@ -1,8 +1,10 @@
+from argparse import ArgumentParser
 import numpy as np
 
 
+
 def sub_cost(cha_i, cha_j):
-    """ checks if two characters are equal"""
+    """checks if two characters are equal"""
 
     if cha_i == cha_j:
         return 0
@@ -11,8 +13,10 @@ def sub_cost(cha_i, cha_j):
 
 def meDistance(source_word, target_word):
     """calculates the minimum edit distance between two words"""
+    # normalize wordds
     source_word = source_word.lower()
     target_word = target_word.lower()
+
     n = len(source_word)
     m = len(target_word)
 
@@ -34,6 +38,17 @@ def meDistance(source_word, target_word):
 
 
 if __name__ == '__main__':
-    md = meDistance("intention", "execution")
-    print("the minimum edit distance between {0} and {1} is {2}".format("dog", "cat", str(md)))
+    # accept command-line arguments
+    parser = ArgumentParser(description="calculates the minimum edit distance between two words.")
+    parser.add_argument("source_word", help="takes the source word")
+    parser.add_argument("target_word", help="takes the target word")
+    args = vars(parser.parse_args())
+
+    # extract arguments passed from command-line
+    source_word = args.get('source_word', None)
+    target_word = args.get('target_word', None)
+
+    if source_word and target_word:
+        md = meDistance(source_word, target_word)
+        print("the minimum edit distance between {0} and {1} is {2}".format(source_word, target_word, str(md)))
     
