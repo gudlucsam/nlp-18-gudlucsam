@@ -16,21 +16,23 @@ MEDistance is a Python program for calculating the minimum edit distance between
 ### Running on Jupyter notebook
 
 * Open Jupyter notebook in your clone directory.
-* Navigate to: project1-naive-bayes/my-naive-bayes/my_naive_bayes.ipynb
+* Navigate to: lab2-MEDistance/med.ipynb
 
 ```
-mdl.naive_bayes_classifier("path-to-doc") # provide document to perform the sentiment analysis on. # uses "../sentiment-labelled-sentences/newdoc.txt" by default.
+# Substitute in the source_word and target word in the meDistance(source_word, target_word) and run
+meDistance(source_word, target_word)
 ```
 
 ### Running On Command-line
 
-* Navigate to: project1-naive-bayes/my-naive-bayes/my_naive_bayes.py on cmd
+* Navigate to: lab2-MEDistance/ on cmd
 
 ```
 # run this to ensure everything is working
-python my_naive_bayes.py "../sentiment-labelled-sentences/newdoc.txt" 
+python med.py source_word target_word
 
-python my_naive_bayes.py -h # provides help on how to run this on the command-line
+# to get help on how to run this on the command-line
+python med.py -h 
 
 ```
 
